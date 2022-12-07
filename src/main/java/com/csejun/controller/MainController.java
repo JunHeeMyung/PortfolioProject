@@ -6,12 +6,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/test")
 public class MainController {
 	
 	@GetMapping("/heartbeat")
 	public String heartbeat() {
-		System.out.println("BE is alive");
 		return "BE is alive";
 	}
 

@@ -7,7 +7,6 @@ import Test from 'components/test/test'
 import Wrapper from 'components/common/wrapper';
 import { Provider } from 'react-redux'
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
