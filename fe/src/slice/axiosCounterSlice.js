@@ -4,8 +4,8 @@ const axiosCounterSlice = createSlice({
     name: 'axiosCounter',
     initialState: { value: 0 },
     reducers: {
-        plus: (state, action) => { state.value += action.payload; console.log(state.value)},
-        minus: (state, action) => { state.value -= action.payload; console.log(state.value)}
+        plus: (state, action) => { state.value += action.payload; },
+        minus: (state, action) => { state.value -= action.payload; }
     }
 });
 
