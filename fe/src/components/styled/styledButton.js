@@ -13,18 +13,10 @@ const ButtonStyle = styled.button`
     cursor: ${props => props.cursor || 'pointer'};
     text-align: ${props => props.textAlign || 'center'};
     background-color: ${props => props.backgroundColor || 'white'};
-    box-shadow: 2px 2px 2px 2px gray;
+    box-shadow: ${props => props.boxShadow || '-2px -2px gray'}; 
 
     &:hover{
-        color: ${props => props.hoverColor || props.backgroundColor ||'white'};
-        background-color: ${props => props.hoverBackgroundColor || props.color ||'black'};
-    }
-
-    &:active{
-        color: ${props => props.hoverColor || props.backgroundColor ||'white'};
-        background-color: ${props => props.hoverBackgroundColor || props.color ||'black'};
-        transform:translate(3px,3px);
-        box-shadow: 1px 1px 1px 1px gray;
+        filter: brightness(0.9);    
     }
 
 `
