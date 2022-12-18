@@ -1,48 +1,59 @@
 import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router';
-import StyledButton from 'components/styled/styledButton';
 import axios from 'axios';
 
 const Test = () => {
 
-  const [msg, setMsg] = useState("BE is dead")
+  const [data, setData] = useState({email:''});
 
-  const requestHeartbeat = ()=>{ 
-    axios.get("/api/test/heartbeat")
+  const onChange = e => {
+    const { name , value } = e.target;
+    setData({...data, [name] : value });
+  }
+
+  const onSubmit = e => {
+    e.preventDefault();
+    register();
+  }
+
+  const register = ()=>{ 
+    axios({
+      method : 'post',
+      url : '/api/member/hi',
+      data : data,
+    })
     .then(res => {
       console.log(res)
-      setMsg(res.data);
+    }).catch(err=>{
+      console.log(err)
     });
   }
 
-  const requestButton =  <StyledButton 
-              width='6.0rem' 
-              height='2.0rem'
-              hoverColor = 'white'
-              backgroundColor='rgba(0,0,0,0.1)'
-              hoverBackgroundColor='rgba(0,0,0,0.7)'
-              onClick={requestHeartbeat}>재요청</StyledButton>
-
-
   useEffect(()=>{
-    requestHeartbeat();
-  },[])
 
-  useEffect(()=>{},[msg])
+  },[data])
 
   return (
     <>
       <Routes>
         <Route path="/" element={
           <>
-              FE is alive
+              전송테스트
             <hr />
-            <span>
-              {msg}
-            </span>
-              {requestButton}
-            <hr />  
-        
+              {JSON.stringify(data)}
+            <hr />
+
+            <form onSubmit={onSubmit}>
+              <input
+                type="text"
+                name="email"
+                defaultValue=""
+                onChange={onChange}
+              />
+              <button type="submit">전송</button>
+            </form>
+
+            <hr />
             
         </>
         }>
