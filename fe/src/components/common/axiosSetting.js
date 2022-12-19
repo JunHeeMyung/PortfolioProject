@@ -5,23 +5,20 @@ import { add } from "slice/axiosCounterSlice";
 
 const AxiosSetting = () => {
 
-    const IPSERVER = "https://api.ipify.org/?format=json";
-    
+    const IPSERVER = process.env.REACT_APP_IPSERVER;
+
     const dispatch = useDispatch();
-    const addAxiosCounter = num => dispatch(add(num));
+    const addAxiosCounter = addend => dispatch(add(addend));
     const getIpAddr = () => {
 
-      fetch(IPSERVER)
-            .then(res=>res.json())
-            .then(data => {
-                console.log(data.ip);
-                setAxiosInterceptor(data.ip);
+        axios.get(IPSERVER)
+        .then(res => {
+          setAxiosInterceptor(res.data.ip);
         }).catch(err=>{
-            console.log(err);
-            setAxiosInterceptor('');
-        })
-
-    }
+          setTimeout(() => {window.location.reload();}, 3000);
+        });
+        
+    } 
     const setAxiosInterceptor = ipAddr => {
 
       axios.interceptors.request.use(
