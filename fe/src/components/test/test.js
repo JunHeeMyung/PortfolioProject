@@ -19,11 +19,12 @@ const Test = () => {
   const register = ()=>{ 
     axios({
       method : 'post',
-      url : '/api/member/hi',
+      url : '/api/test/header',
       data : data,
     })
     .then(res => {
       console.log(res)
+      alert(res.data);
     }).catch(err=>{
       console.log(err)
     });

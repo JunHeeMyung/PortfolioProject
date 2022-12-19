@@ -1,12 +1,15 @@
 package com.csejun.controller;
 
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,23 +23,17 @@ public class TestController {
 	
 	@Autowired
 	MailService mailService;
-	
-	@GetMapping("/heartbeat")
-	public String heartbeat() {
-		return "BE is alive";
-	}
 		
-	@GetMapping("/mailsend")
-	public String mailsend() throws MessagingException {
+	@PostMapping("/mail")
+	public String sendMail() throws MessagingException {
 		
 		mailService.sendMail("회원가입 ", "platinyan@naver.com", "내용");
 		
 		return "ok";
 	}
-	
 
-	@GetMapping("/header")
-	public String register(HttpServletRequest request) {
+	@PostMapping("/header")
+	public String getHeader(HttpServletRequest request) {
 		
 		Enumeration<String> headerNames = request.getHeaderNames();
 		
@@ -53,11 +50,13 @@ public class TestController {
 		
 		return header;
 	}
-
 	
-	
-	
-	
-	
+	@GetMapping("/ip")
+	public Map<String, Object> getIp(HttpServletRequest request) {
+		HashMap<String, Object> hashMap = new HashMap<>();
+		hashMap.put("ip", IPUtil.getClientIpAddr(request));
+		System.out.println("아이피요청:"+IPUtil.getClientIpAddr(request));
+		return hashMap;
+	}
 
 }
